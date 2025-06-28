@@ -1,0 +1,60 @@
+.splash-screen {
+  height: 100vh;
+  background: linear-gradient(120deg, #a18cd1, #fbc2eb);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.splash-content {
+  text-align: center;
+  animation: floatIn 1s ease-out;
+}
+
+.logo-text {
+  font-size: 4rem;
+  font-weight: bold;
+  color: white;
+  animation: popIn 1.5s ease;
+}
+
+.tagline {
+  font-size: 1.5rem;
+  color: white;
+  margin-top: 1rem;
+  opacity: 0.9;
+  animation: fadeInText 2s ease;
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes floatIn {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInText {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
