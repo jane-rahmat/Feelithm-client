@@ -7,7 +7,7 @@ export default function Footer() {
       <p className="mb-1 italic font-medium">
         “Not just a mood tracker — a mood lifter.”
       </p>
-      <p>&copy; 2025 Feelithm · Developed by <strong>Jane Rahmat</strong></p>
+      <p>&copy; 2025 Feelithm · Developed by <strong>Jane Rahmat💙</strong></p>
     </footer>
   );
 }
