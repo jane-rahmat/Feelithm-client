@@ -1,5 +1,19 @@
 <div align="center">
   <h1>💙 Feelithm</h1>
+  <p align="center">
+  <em>Find your emotional rhythm.</em><br />
+  A smart, calming mood-tracker that listens, reflects, and motivates.  
+  Designed for anyone navigating mental health, self-awareness, or simply trying to feel a little better every day.
+</p>
+
+  <p align="center">
+  <img src="https://img.shields.io/github/languages/top/Feelithm/Feelithm-client" />
+  <img src="https://img.shields.io/github/last-commit/Feelithm/Feelithm-client" />
+  <img src="https://img.shields.io/badge/status-live-brightgreen" />
+  <img src="https://img.shields.io/badge/frontend-react-blue" />
+  <img src="https://img.shields.io/badge/deployment-vercel-black" />
+</p>
+
   <p><em>Track your mood. Heal your mind. Reflect. Grow.</em></p>
 </div>
 
@@ -46,3 +60,21 @@
 ### About This Repo
 
 `feelithm-client` — the React front‑end for Feelithm, the mood‑lifting emotional‑support web app.
+---
+
+## 📣 Feedback & Contributions
+
+We'd love your input! Feel free to:
+
+- Report bugs or issues [here](https://github.com/Feelithm/Feelithm-client/issues)
+- Suggest new features
+- Contribute to the project — just fork, commit, and send a pull request!
+
+Together, we can make Feelithm even better 💙
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](./LICENSE).
+
