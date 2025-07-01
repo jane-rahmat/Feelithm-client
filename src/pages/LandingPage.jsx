@@ -1,19 +1,12 @@
+import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import EmojiBackground from "../components/EmojiBackground";
 import Footer from "../components/Footer";
 
 export default function LandingPage() {
   return (
-    <div
-      className="flex flex-col min-h-screen relative overflow-hidden
-                 font-sans text-gray-800 dark:text-gray-100
-                 bg-gradient-to-br from-pink-100 via-purple-100 to-blue-100
-                 dark:from-indigo-900 dark:via-purple-900 dark:to-gray-900"
-    >
-      {/* floating emojis */}
+    <div className="flex flex-col min-h-screen relative overflow-hidden font-sans text-gray-800 dark:text-gray-100 bg-gradient-to-br from-pink-100 via-purple-100 to-blue-100 dark:from-indigo-900 dark:via-purple-900 dark:to-gray-900">
       <EmojiBackground />
-
-      {/* sticky nav */}
       <Navbar />
 
       {/* HERO */}
@@ -29,20 +22,19 @@ export default function LandingPage() {
         </p>
 
         <div className="flex gap-4">
-          <button
-            onClick={() =>
-              document
-                .getElementById("about")
-                .scrollIntoView({ behavior: "smooth" })
-            }
-            className="px-8 py-3 rounded-2xl text-white bg-purple-600 hover:bg-purple-700 shadow-lg hover:shadow-xl transition"
-          >
-            Get Started
-          </button>
+          {/* Get Started → /pick-mood */}
+          <Link to="/pick-mood">
+            <button className="px-8 py-3 rounded-2xl text-white bg-purple-600 hover:bg-purple-700 shadow-lg hover:shadow-xl transition">
+              Get Started
+            </button>
+          </Link>
 
-          <button className="px-8 py-3 rounded-2xl bg-white/70 dark:bg-zinc-800/70 backdrop-blur hover:backdrop-blur-lg shadow transition">
-            Learn More
-          </button>
+          {/* Learn More → /features */}
+          <Link to="/features">
+            <button className="px-8 py-3 rounded-2xl bg-white/70 dark:bg-zinc-800/70 backdrop-blur hover:backdrop-blur-lg shadow transition">
+              Learn More
+            </button>
+          </Link>
         </div>
       </section>
 
