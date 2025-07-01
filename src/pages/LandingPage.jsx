@@ -15,6 +15,11 @@ export default function LandingPage() {
           Track&nbsp;Your&nbsp;Mood,<br className="hidden sm:block" />
           Heal&nbsp;Your&nbsp;Mind.
         </h2>
+        <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-4">
+  Track&nbsp;Your&nbsp;Mood,<br className="hidden sm:block" />
+  Heal&nbsp;Your&nbsp;Mind. 💜
+</h2>
+
 
         <p className="max-w-xl text-lg sm:text-xl mb-8">
           <span className="font-semibold">Feelithm</span> helps you understand
