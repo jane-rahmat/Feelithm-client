@@ -23,7 +23,7 @@ export default function LandingPage() {
         data-aos="fade-up"
         className="flex flex-col items-center justify-center text-center px-4 py-24 lg:py-32 relative z-10"
       >
-        <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-4">
+        <h2 className="text-2xl sm:text-4xl md:text-6xl font-extrabold tracking-tight leading-snug mb-4">
           Track&nbsp;Your&nbsp;Mood,<br className="hidden sm:block" />
           Heal&nbsp;Your&nbsp;Mind.
         </h2>
@@ -34,14 +34,14 @@ export default function LandingPage() {
         </p>
 
         <div className="flex gap-4">
-          {/* Get Started → /pick-mood */}
+          {/* Get Started → /pick-mood */}
           <Link to="/pick-mood">
             <button className="px-8 py-3 rounded-2xl text-white bg-purple-600 hover:bg-purple-700 shadow-lg hover:shadow-xl transition">
               Get Started
             </button>
           </Link>
 
-          {/* Learn More → /features */}
+          {/* Learn More → /features */}
           <Link to="/features">
             <button className="px-8 py-3 rounded-2xl bg-white/70 dark:bg-zinc-800/70 backdrop-blur hover:backdrop-blur-lg shadow transition">
               Learn More
@@ -66,4 +66,4 @@ export default function LandingPage() {
       <Footer />
     </div>
   );
-}  
+}
