@@ -7,6 +7,7 @@ import PickMood from "./pages/PickMood";
 import Journal from "./pages/Journal";
 import Features from "./pages/Features";
 import JournalHistory from "./pages/JournalHistory";
+import Feedback from "./pages/Feedback";
 
 import "./index.css";
 
@@ -20,6 +21,7 @@ export default function App() {
         <Route path="/journal" element={<Journal />} />
         <Route path="/features" element={<Features />} />
         <Route path="/journal-history" element={<JournalHistory />} />
+        <Route path="/feedback" element={<Feedback />} />
       </Routes>
     </Router>
   );
