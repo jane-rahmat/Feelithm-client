@@ -1,3 +1,4 @@
+// src/App.jsx
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -11,24 +12,51 @@ import Feedback from "./pages/Feedback";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 
+import { AuthProvider } from "./context/AuthContext";     // 🟣 global auth state
+import ProtectedRoute from "./components/ProtectedRoute"; // 🔒 route guard
+
 import "./index.css";
 
 export default function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Splash />} />
-        <Route path="/home" element={<LandingPage />} />
-        <Route path="/pick-mood" element={<PickMood />} />
-        <Route path="/journal" element={<Journal />} />
-        <Route path="/features" element={<Features />} />
-        <Route path="/journal-history" element={<JournalHistory />} />
-        <Route path="/feedback" element={<Feedback />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
-        
+    <AuthProvider>
+      <Router>
+        <Routes>
+          {/* Public routes */}
+          <Route path="/" element={<Splash />} />
+          <Route path="/home" element={<LandingPage />} />
+          <Route path="/features" element={<Features />} />
+          <Route path="/feedback" element={<Feedback />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
 
-      </Routes>
-    </Router>
+          {/* Private routes (require login) */}
+          <Route
+            path="/pick-mood"
+            element={
+              <ProtectedRoute>
+                <PickMood />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/journal"
+            element={
+              <ProtectedRoute>
+                <Journal />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/journal-history"
+            element={
+              <ProtectedRoute>
+                <JournalHistory />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
