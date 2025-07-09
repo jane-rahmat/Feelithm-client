@@ -16,9 +16,9 @@ export default function Navbar() {
 
   const nav = [
     { label: "Home",         to: "/home" },
-    { label: "Features",     to: "/features" },
-    { label: "Journal",      to: "/journal" },
     { label: "Mood Tracker", to: "/pick-mood" },
+    { label: "Journal",      to: "/journal" },
+    { label: "Features",     to: "/features" },
     { label: "Contact",      to: "/feedback" },
   ];
 
