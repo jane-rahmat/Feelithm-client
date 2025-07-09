@@ -1,82 +1,61 @@
+// src/pages/Journal.jsx
 import { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import EmojiBackground from "../components/EmojiBackground";
 import Footer from "../components/Footer";
 
 export default function Journal() {
   const [entry, setEntry] = useState("");
-  const [mood, setMood] = useState("Unknown");
-  const [emoji, setEmoji] = useState("❓");
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    setMood(localStorage.getItem("selectedMood") || "Unknown");
-    setEmoji(localStorage.getItem("selectedEmoji") || "❓");
-  }, []);
+  const [saved, setSaved] = useState(false);
+  const mood = localStorage.getItem("selectedMood");
+  const emoji = localStorage.getItem("selectedEmoji");
 
   const handleSave = () => {
-    if (entry.trim().length === 0) {
-      alert("Please write something!");
-      return;
-    }
-
-    const history =
-      JSON.parse(localStorage.getItem("journalHistory") || "[]") || [];
-
-    history.push({
+    const timestamp = new Date().toLocaleString();
+    const journalEntry = {
       mood,
       emoji,
-      text: entry.trim(),
-      date: new Date().toLocaleString(),
-    });
+      entry,
+      timestamp,
+    };
 
-    localStorage.setItem("journalHistory", JSON.stringify(history));
+    const existing = JSON.parse(localStorage.getItem("journalEntries")) || [];
+    existing.push(journalEntry);
+    localStorage.setItem("journalEntries", JSON.stringify(existing));
+    setSaved(true);
 
-    // clear current mood (optional)
-    localStorage.removeItem("selectedMood");
-    localStorage.removeItem("selectedEmoji");
-
-    navigate("/journal-history");
+    setTimeout(() => setSaved(false), 2000); // hide message after 2 sec
+    setEntry(""); // optionally clear
   };
 
   return (
-    <div className="flex flex-col min-h-screen relative overflow-hidden font-sans text-gray-800 dark:text-gray-100 bg-gradient-to-br from-pink-100 via-purple-100 to-blue-100 dark:from-indigo-900 dark:via-purple-900 dark:to-gray-900">
-      <EmojiBackground />
+    <div className="flex flex-col min-h-screen bg-gradient-to-br from-purple-100 via-pink-100 to-blue-100 dark:from-zinc-900 dark:via-purple-900 dark:to-black text-gray-800 dark:text-white">
       <Navbar />
 
-      <main className="flex-grow flex flex-col items-center justify-center px-6 py-12 text-center">
-        <h1 className="text-3xl sm:text-4xl font-bold mb-6">
-          Write about your feelings
-        </h1>
+      <main className="flex-grow flex items-center justify-center px-4 py-12">
+        <div className="bg-white dark:bg-zinc-800 shadow-xl rounded-xl p-8 max-w-2xl w-full">
+          <h2 className="text-xl font-semibold mb-2 text-purple-700 dark:text-purple-300">
+            {emoji} Today you feel <span className="font-bold">{mood}</span>
+          </h2>
 
-        <p className="mb-4 text-lg">
-          {emoji}&nbsp; Current Mood:&nbsp;
-          <span className="font-semibold text-purple-600 dark:text-purple-400">
-            {mood}
-          </span>
-        </p>
+          <textarea
+            rows={8}
+            className="w-full mt-4 p-4 rounded-md border border-purple-300 dark:border-purple-600 bg-white dark:bg-zinc-900 text-sm"
+            placeholder="Write your thoughts here..."
+            value={entry}
+            onChange={(e) => setEntry(e.target.value)}
+          />
 
-        <textarea
-          placeholder="Type how you feel..."
-          className="w-full max-w-2xl min-h-[180px] p-4 rounded-xl shadow-lg bg-white/80 dark:bg-zinc-800/80 focus:outline-none focus:ring-2 focus:ring-purple-400 resize-none"
-          value={entry}
-          onChange={(e) => setEntry(e.target.value)}
-        />
+          <button
+            onClick={handleSave}
+            className="mt-4 w-full bg-purple-600 text-white py-2 rounded hover:bg-purple-700 transition"
+          >
+            Save Entry
+          </button>
 
-        <button
-          onClick={handleSave}
-          className="mt-6 px-8 py-3 rounded-2xl text-white bg-purple-600 hover:bg-purple-700 shadow-lg hover:shadow-xl transition"
-        >
-          Save & Continue
-        </button>
-
-        <Link
-          to="/journal-history"
-          className="mt-4 text-sm text-purple-600 hover:underline"
-        >
-          View Journal History →
-        </Link>
+          {saved && (
+            <p className="text-green-500 text-sm mt-2">Journal entry saved successfully!</p>
+          )}
+        </div>
       </main>
 
       <Footer />
