@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+
 import Navbar from "../components/Navbar";
 import EmojiBackground from "../components/EmojiBackground";
 import Footer from "../components/Footer";
+import { MoodContext } from "../context/MoodContext";
 
 const moods = [
   { emoji: "😊", label: "Happy" },
@@ -16,16 +18,21 @@ const moods = [
 
 export default function PickMood() {
   const [open, setOpen] = useState(true);
-  const [selected, setSelected] = useState(null); // { emoji, label }
+  const [selected, setSelected] = useState(null);
   const navigate = useNavigate();
+  const { setMood } = useContext(MoodContext);
 
   const selectMood = (m) => {
-    // Save both mood and emoji
+    setSelected(m);
+    setMood(m); // ✅ Save to global context
     localStorage.setItem("selectedMood", m.label);
     localStorage.setItem("selectedEmoji", m.emoji);
 
-    setSelected(m);
     setOpen(false);
+
+    setTimeout(() => {
+      navigate("/mood-suggestions"); // ✅ Go to suggestions page
+    }, 1200); // slight delay after dialog closes
   };
 
   return (
@@ -45,12 +52,7 @@ export default function PickMood() {
               </span>
               &nbsp;today.
             </h2>
-            <button
-              onClick={() => navigate("/journal")}
-              className="px-8 py-3 rounded-2xl bg-purple-600 hover:bg-purple-700 text-white shadow-lg hover:shadow-xl transition"
-            >
-              Next
-            </button>
+            <p className="text-sm text-gray-500 dark:text-gray-300 italic">Preparing suggestions...</p>
           </div>
         )}
       </main>

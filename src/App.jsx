@@ -11,6 +11,7 @@ import JournalHistory from "./pages/JournalHistory";
 import Feedback from "./pages/Feedback";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
+import MoodSuggestions from "./pages/MoodSuggestions";
 
 import { AuthProvider } from "./context/AuthContext";     // 🟣 global auth state
 import ProtectedRoute from "./components/ProtectedRoute"; // 🔒 route guard
@@ -29,6 +30,8 @@ export default function App() {
           <Route path="/feedback" element={<Feedback />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/mood-suggestions" element={<MoodSuggestions />} />
+
 
           {/* Private routes (require login) */}
           <Route
