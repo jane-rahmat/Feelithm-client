@@ -1,5 +1,6 @@
 // src/pages/Journal.jsx
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
@@ -8,6 +9,7 @@ export default function Journal() {
   const [saved, setSaved] = useState(false);
   const mood = localStorage.getItem("selectedMood");
   const emoji = localStorage.getItem("selectedEmoji");
+  const navigate = useNavigate(); // ✅ required for navigation
 
   const handleSave = () => {
     const timestamp = new Date().toLocaleString();
@@ -53,8 +55,20 @@ export default function Journal() {
           </button>
 
           {saved && (
-            <p className="text-green-500 text-sm mt-2">Journal entry saved successfully!</p>
+            <p className="text-green-500 text-sm mt-2">
+              Journal entry saved successfully!
+            </p>
           )}
+
+          {/* ✅ View Journal History Button */}
+          <div className="mt-6 text-center">
+            <button
+              onClick={() => navigate("/journal-history")}
+              className="px-6 py-2 rounded-lg bg-purple-600 hover:bg-purple-700 text-white transition"
+            >
+              📜 View Journal History
+            </button>
+          </div>
         </div>
       </main>
 
