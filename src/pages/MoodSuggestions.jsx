@@ -99,7 +99,7 @@ export default function MoodSuggestions() {
         </ul>
 
         <button
-          onClick={() => navigate("/pre-journal")}
+          onClick={() => navigate("/journal")}
           className="mt-4 px-8 py-3 rounded-2xl bg-purple-600 hover:bg-purple-700 text-white shadow-lg hover:shadow-xl transition"
         >
           Continue to Journal
