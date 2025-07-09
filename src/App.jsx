@@ -13,9 +13,8 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import MoodSuggestions from "./pages/MoodSuggestions";
 
-
-import { AuthProvider } from "./context/AuthContext";     // 🟣 global auth state
-import ProtectedRoute from "./components/ProtectedRoute"; // 🔒 route guard
+import { AuthProvider } from "./context/AuthContext";      // 🟣 global auth state
+import ProtectedRoute from "./components/ProtectedRoute";  // 🔒 route guard
 
 import "./index.css";
 
@@ -24,6 +23,7 @@ export default function App() {
     <AuthProvider>
       <Router>
         <Routes>
+
           {/* Public routes */}
           <Route path="/" element={<Splash />} />
           <Route path="/home" element={<LandingPage />} />
@@ -32,8 +32,6 @@ export default function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/mood-suggestions" element={<MoodSuggestions />} />
-          
-
 
           {/* Private routes (require login) */}
           <Route
@@ -60,6 +58,7 @@ export default function App() {
               </ProtectedRoute>
             }
           />
+
         </Routes>
       </Router>
     </AuthProvider>
