@@ -1,32 +1,46 @@
-// src/pages/Journal.jsx
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { db } from "../firebase/firebase"; // ✅ Correct import
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { useAuth } from "../context/AuthContext"; // ✅ AuthContext hook
+import Loader from "../components/Loader";
 
 export default function Journal() {
   const [entry, setEntry] = useState("");
   const [saved, setSaved] = useState(false);
+  const [loading, setLoading] = useState(false); // 🔄 loading state
   const mood = localStorage.getItem("selectedMood");
   const emoji = localStorage.getItem("selectedEmoji");
-  const navigate = useNavigate(); // ✅ required for navigation
+  const navigate = useNavigate();
+  const { user } = useAuth(); // get logged-in user
 
-  const handleSave = () => {
-    const timestamp = new Date().toLocaleString();
-    const journalEntry = {
-      mood,
-      emoji,
-      entry,
-      timestamp,
-    };
+  const handleSave = async () => {
+    if (!user) {
+      alert("Please log in to save your journal entry.");
+      return;
+    }
 
-    const existing = JSON.parse(localStorage.getItem("journalEntries")) || [];
-    existing.push(journalEntry);
-    localStorage.setItem("journalEntries", JSON.stringify(existing));
-    setSaved(true);
+    setLoading(true);
+    try {
+      await addDoc(collection(db, "journals"), {
+        uid: user.uid,
+        mood,
+        emoji,
+        entry,
+        timestamp: serverTimestamp(),
+      });
 
-    setTimeout(() => setSaved(false), 2000); // hide message after 2 sec
-    setEntry(""); // optionally clear
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2000);
+      setEntry("");
+    } catch (error) {
+      console.error("Error saving journal:", error);
+      alert("Failed to save journal. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -39,36 +53,41 @@ export default function Journal() {
             {emoji} Today you feel <span className="font-bold">{mood}</span>
           </h2>
 
-          <textarea
-            rows={8}
-            className="w-full mt-4 p-4 rounded-md border border-purple-300 dark:border-purple-600 bg-white dark:bg-zinc-900 text-sm"
-            placeholder="Write your thoughts here..."
-            value={entry}
-            onChange={(e) => setEntry(e.target.value)}
-          />
+          {loading ? (
+            <Loader />
+          ) : (
+            <>
+              <textarea
+                rows={8}
+                className="w-full mt-4 p-4 rounded-md border border-purple-300 dark:border-purple-600 bg-white dark:bg-zinc-900 text-sm"
+                placeholder="Write your thoughts here..."
+                value={entry}
+                onChange={(e) => setEntry(e.target.value)}
+              />
 
-          <button
-            onClick={handleSave}
-            className="mt-4 w-full bg-purple-600 text-white py-2 rounded hover:bg-purple-700 transition"
-          >
-            Save Entry
-          </button>
+              <button
+                onClick={handleSave}
+                className="mt-4 w-full bg-purple-600 text-white py-2 rounded hover:bg-purple-700 transition"
+              >
+                Save Entry
+              </button>
 
-          {saved && (
-            <p className="text-green-500 text-sm mt-2">
-              Journal entry saved successfully!
-            </p>
+              {saved && (
+                <p className="text-green-500 text-sm mt-2">
+                  Journal entry saved successfully!
+                </p>
+              )}
+
+              <div className="mt-6 text-center">
+                <button
+                  onClick={() => navigate("/journal-history")}
+                  className="px-6 py-2 rounded-lg bg-purple-600 hover:bg-purple-700 text-white transition"
+                >
+                  📜 View Journal History
+                </button>
+              </div>
+            </>
           )}
-
-          {/* ✅ View Journal History Button */}
-          <div className="mt-6 text-center">
-            <button
-              onClick={() => navigate("/journal-history")}
-              className="px-6 py-2 rounded-lg bg-purple-600 hover:bg-purple-700 text-white transition"
-            >
-              📜 View Journal History
-            </button>
-          </div>
         </div>
       </main>
 

@@ -1,3 +1,4 @@
+// src/pages/PickMood.jsx
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -31,8 +32,8 @@ export default function PickMood() {
     setOpen(false);
 
     setTimeout(() => {
-      navigate("/mood-suggestions"); // ✅ Go to suggestions page
-    }, 1200); // slight delay after dialog closes
+      navigate(`/mood-suggestions?mood=${m.label}`); // ✅ FIXED!
+    }, 1200);
   };
 
   return (
@@ -59,7 +60,6 @@ export default function PickMood() {
 
       <Footer />
 
-      {/* Mood dialog */}
       <AnimatePresence>
         {open && (
           <motion.div

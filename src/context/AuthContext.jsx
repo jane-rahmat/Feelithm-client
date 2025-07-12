@@ -1,29 +1,23 @@
-// src/context/AuthContext.jsx
-import { createContext, useEffect, useState } from "react";
-import { onAuthStateChanged, signOut } from "firebase/auth";
-import { auth } from "../firebase/firebase";   // ← make sure this is the right path
+import { createContext, useState, useEffect, useContext } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebase/firebase";
 
 export const AuthContext = createContext();
 
-export function AuthProvider({ children }) {
-  const [user, setUser]   = useState(null);
-  const [loading, setLoading] = useState(true);
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // Listen for sign‑in / sign‑out
-    const unsub = onAuthStateChanged(auth, (cur) => {
-      setUser(cur);
-      setLoading(false);
-    });
-    return () => unsub();
+    const unsubscribe = onAuthStateChanged(auth, setUser);
+    return () => unsubscribe();
   }, []);
 
-  // simple logout helper
-  const logout = () => signOut(auth);
-
   return (
-    <AuthContext.Provider value={{ user, logout }}>
-      {!loading && children}
+    <AuthContext.Provider value={{ user }}>
+      {children}
     </AuthContext.Provider>
   );
-}
+};
+
+// ✅ Add this to fix useAuth import
+export const useAuth = () => useContext(AuthContext);

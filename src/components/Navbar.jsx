@@ -1,31 +1,43 @@
 // src/components/Navbar.jsx
 import { useState, useEffect, useContext } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import { AuthContext } from "../context/AuthContext";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase/firebase";
 
 export default function Navbar() {
   const [dark, setDark] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const { pathname } = useLocation();
-  const { user, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", dark);
   }, [dark]);
 
   const nav = [
-    { label: "Home",         to: "/home" },
+    { label: "Home", to: "/home" },
     { label: "Mood Tracker", to: "/pick-mood" },
-    { label: "Journal",      to: "/journal" },
-    { label: "Features",     to: "/features" },
-    { label: "Contact",      to: "/feedback" },
+    { label: "Journal", to: "/journal" },
+    { label: "Features", to: "/features" },
+    { label: "Contact", to: "/feedback" },
   ];
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      navigate("/login");
+    } catch (error) {
+      console.error("Logout error:", error);
+      alert("Failed to log out.");
+    }
+  };
 
   return (
     <header className="sticky top-0 z-50 bg-white/70 dark:bg-zinc-900/70 backdrop-blur shadow-md">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
-
         {/* ── Logo ── */}
         <Link to="/home">
           <img
@@ -49,10 +61,10 @@ export default function Navbar() {
             </Link>
           ))}
 
-          {/* Auth button only (no email) */}
+          {/* Auth button */}
           {user ? (
             <button
-              onClick={logout}
+              onClick={handleLogout}
               className="px-3 py-1 rounded-lg bg-red-500 text-white hover:bg-red-600 transition"
             >
               Log Out
@@ -104,7 +116,10 @@ export default function Navbar() {
           {/* Mobile Log In / Log Out */}
           {user ? (
             <button
-              onClick={() => { logout(); setMenuOpen(false); }}
+              onClick={() => {
+                handleLogout();
+                setMenuOpen(false);
+              }}
               className="block w-full text-center px-2 py-1 rounded bg-red-500 text-white hover:bg-red-600 transition"
             >
               Log Out
@@ -121,7 +136,10 @@ export default function Navbar() {
 
           {/* Mobile dark mode toggle */}
           <button
-            onClick={() => { setDark(!dark); setMenuOpen(false); }}
+            onClick={() => {
+              setDark(!dark);
+              setMenuOpen(false);
+            }}
             className="flex items-center gap-2 pt-2"
           >
             {dark ? "🌞 Light Mode" : "🌙 Dark Mode"}
