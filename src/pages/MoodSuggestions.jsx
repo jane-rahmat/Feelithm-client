@@ -1,4 +1,5 @@
-// src/pages/MoodSuggestions.jsx
+// Paste exactly this file
+
 import React, { useEffect, useState, useCallback, useMemo } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { FaSyncAlt, FaMusic } from "react-icons/fa";
@@ -6,9 +7,9 @@ import { FaSyncAlt, FaMusic } from "react-icons/fa";
 const moodData = {
   Happy: {
     quotes: [
-      "Happiness is not by chance, but by choice.",
-      "Smile, it's free therapy.",
-      "The purpose of our lives is to be happy.",
+      "The most beautiful moments in life are moments when you are expressing your joy, not when you are seeking it.",
+      "💫 You're not chasing happiness anymore — You're creating it, moment by moment.",
+      "You deserve the kind of happiness that comes from within, not the kind that depends on others.",
     ],
     songs: [
       {
@@ -25,8 +26,8 @@ const moodData = {
   },
   Sad: {
     quotes: [
-      "Tears come from the heart and not from the brain.",
-      "Every human walks around with a certain kind of sadness.",
+      "It’s okay to pause — even the moon takes time to shine again 🌑.",
+      "Your sadness is a gift. Don’t reject it. Don’t rush it. Live it fully and use it as fuel for transformation and compassion.",
     ],
     songs: [
       {
@@ -43,8 +44,8 @@ const moodData = {
   },
   Loved: {
     quotes: [
-      "You are loved more than you will ever know.",
-      "To love and be loved is to feel the sun from both sides.",
+      "The greatest feeling isn’t just being in love — it’s knowing that someone chooses you, every single day.",
+      "Being loved deeply by someone gives you strength, while loving someone deeply gives you courage.",
     ],
     songs: [
       {
@@ -61,8 +62,8 @@ const moodData = {
   },
   Angry: {
     quotes: [
-      "Speak when you are angry and you'll make the best speech you'll ever regret.",
-      "Anger is one letter short of danger.",
+      "🌪 Sometimes you want to scream, not because you're out of control, but because you've been  controlled for too long.",
+      "Holding onto anger is like grasping a hot coal with the intent of throwing it at someone else; you are the one who gets burned.",
     ],
     songs: [
       {
@@ -79,9 +80,9 @@ const moodData = {
   },
   Anxious: {
     quotes: [
-      "Just breathe. You’re stronger than you think.",
-      "Worrying means you suffer twice.",
-      "One step at a time is good walking.",
+      "When you’re feeling anxious, remind yourself: you’ve been here before and survived every time.",
+      "You're carrying too many invisible thoughts in a heart that just wants rest.",
+      "You can’t calm the storm, so stop trying. What you can do is calm yourself. The storm will pass.",
     ],
     songs: [
       {
@@ -98,8 +99,8 @@ const moodData = {
   },
   Tired: {
     quotes: [
-      "Rest when you're weary. Refresh and renew yourself.",
-      "Fatigue is the best pillow.",
+      "You're showing up… even when you feel like fading away and that's bravery🥀.",
+      "Rest when you’re weary. Refresh and renew yourself, your body, your mind, your spirit. Then get back to work",
     ],
     songs: [
       {
@@ -134,7 +135,7 @@ export default function MoodSuggestions() {
       const random = quotes[Math.floor(Math.random() * quotes.length)];
       setQuote(random);
       setIsLoadingQuote(false);
-    }, 300); // Add smooth delay for better UX
+    }, 300);
   }, [quotes]);
 
   const generateSong = useCallback(() => {
