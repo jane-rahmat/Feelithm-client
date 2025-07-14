@@ -25,6 +25,31 @@
 
 ---
 
+## 📸 Sneak Peek
+
+Here are a few glimpses of **Feelithm** in action:
+
+<div align="center">
+
+<img src="https://raw.githubusercontent.com/jane-rahmat/Feelithm-client/main/screenshots/Screenshot%20(120).png" width="600" alt="Mood Picker" />
+<br /><br />
+
+<img src="https://raw.githubusercontent.com/jane-rahmat/Feelithm-client/main/screenshots/Screenshot%20(121).png" width="600" alt="Mood Suggestions" />
+<br /><br />
+
+<img src="https://raw.githubusercontent.com/jane-rahmat/Feelithm-client/main/screenshots/Screenshot%20(122).png" width="600" alt="Journal Entry Page" />
+<br /><br />
+
+<img src="https://raw.githubusercontent.com/jane-rahmat/Feelithm-client/main/screenshots/Screenshot%20(126).png" width="600" alt="Feedback Page" />
+<br /><br />
+
+<img src="https://raw.githubusercontent.com/jane-rahmat/Feelithm-client/main/screenshots/Screenshot%20(127).png" width="600" alt="Custom 404 Page" />
+<br /><br />
+
+</div>
+
+---
+
 ## 🌟 Features
 
 - 🧠 **Mood Tracking** – log how you feel in seconds  
@@ -60,6 +85,7 @@
 ### About This Repo
 
 `feelithm-client` — the React front‑end for Feelithm, the mood‑lifting emotional‑support web app.
+
 ---
 
 ## 📣 Feedback & Contributions
@@ -77,4 +103,3 @@ Together, we can make Feelithm even better 💙
 ## 📄 License
 
 This project is licensed under the [MIT License](./LICENSE).
-
