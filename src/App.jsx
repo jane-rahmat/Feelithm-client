@@ -18,6 +18,9 @@ import AdminFeedback from "./pages/AdminFeedback";
 import { AuthProvider } from "./context/AuthContext";      // 🟣 global auth state
 import ProtectedRoute from "./components/ProtectedRoute";  // 🔒 route guard
 
+import { ToastContainer } from "react-toastify";            // ✅ NEW
+import "react-toastify/dist/ReactToastify.css";             // ✅ NEW
+
 import "./index.css";
 
 export default function App() {
@@ -36,7 +39,6 @@ export default function App() {
           <Route path="/mood-suggestions" element={<MoodSuggestions />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/admin/feedback" element={<AdminFeedback />} />
-
 
           {/* Private routes (require login) */}
           <Route
@@ -65,6 +67,8 @@ export default function App() {
           />
 
         </Routes>
+        {/* ✅ Toast messages container */}
+        <ToastContainer position="top-center" autoClose={2500} />
       </Router>
     </AuthProvider>
   );

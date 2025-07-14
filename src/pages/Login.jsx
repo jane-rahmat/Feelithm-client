@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase/firebase.js";
+import { toast } from "react-toastify"; // if using toast
 
 export default function Login() {
   const navigate = useNavigate();
@@ -17,9 +18,12 @@ export default function Login() {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigate(from, { replace: true }); // ✅ Go back to the page user wanted
-    } catch (err) {
-      setError("Invalid email or password");
+      toast.success("Login successful");
+      navigate(from); // ✅ Go back to intended page
+    } catch (error) {
+      console.error(error);
+      toast.error("Login failed");
+      setError("Invalid credentials. Please try again.");
     }
   };
 

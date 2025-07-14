@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import ConfirmationModal from "../components/ConfirmationModal";
+import SkeletonLoader from "../components/SkeletonLoader"; // ✅ Make sure you have this!
 import { db } from "../firebase/firebase";
 import {
   collection,
@@ -18,6 +19,7 @@ import { useAuth } from "../context/AuthContext";
 
 export default function JournalHistory() {
   const [entries, setEntries] = useState([]);
+  const [loading, setLoading] = useState(true); // ✅ loading state
   const [editId, setEditId] = useState(null);
   const [editText, setEditText] = useState("");
   const [deleteId, setDeleteId] = useState(null);
@@ -38,6 +40,7 @@ export default function JournalHistory() {
         ...doc.data(),
       }));
       setEntries(data);
+      setLoading(false); // ✅ end loading
     };
 
     fetchEntries();
@@ -68,9 +71,16 @@ export default function JournalHistory() {
           📜 Journal History
         </h1>
 
-        {entries.length === 0 ? (
+        {/* ✅ Skeleton while loading */}
+        {loading && <SkeletonLoader />}
+
+        {/* ✅ No entries */}
+        {!loading && entries.length === 0 && (
           <p className="text-center text-gray-600 dark:text-gray-400">No journal entries found.</p>
-        ) : (
+        )}
+
+        {/* ✅ Journal entries */}
+        {!loading && entries.length > 0 && (
           <div className="space-y-8">
             {entries.map((entry) => (
               <div
