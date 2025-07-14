@@ -1,4 +1,7 @@
+// src/pages/Feedback.jsx
 import { useState } from "react";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "../firebase/firebase";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import EmojiBackground from "../components/EmojiBackground";
@@ -6,22 +9,45 @@ import EmojiBackground from "../components/EmojiBackground";
 export default function Feedback() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    if (!form.name || !form.email || !form.message) {
-      alert("Please fill in all fields!");
-      return;
-    }
+  if (!form.name || !form.email || !form.message) {
+    alert("Please fill in all fields!");
+    return;
+  }
+
+  // 🟣 Set a slight delay before showing "Sending..." (for better UX)
+  setTimeout(() => setLoading(true), 300);
+
+  try {
+    console.time("🕒 Feedback Submission Time");
+
+    await addDoc(collection(db, "feedback"), {
+      name: form.name,
+      email: form.email,
+      message: form.message,
+      timestamp: serverTimestamp(),  // make sure you imported this
+    });
+
+    console.timeEnd("🕒 Feedback Submission Time");
 
     setSubmitted(true);
     setForm({ name: "", email: "", message: "" });
-  };
+  } catch (error) {
+    console.error("❌ Error submitting feedback:", error);
+    alert("Something went wrong. Please try again.");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-br from-pink-100 via-purple-100 to-blue-100 dark:from-indigo-900 dark:via-purple-900 dark:to-gray-900 text-gray-800 dark:text-gray-100">
@@ -64,9 +90,12 @@ export default function Feedback() {
               />
               <button
                 type="submit"
-                className="w-full bg-purple-600 text-white py-2 rounded-xl hover:bg-purple-700 transition shadow-lg"
+                disabled={loading}
+                className={`w-full ${
+                  loading ? "bg-gray-400" : "bg-purple-600 hover:bg-purple-700"
+                } text-white py-2 rounded-xl transition shadow-lg`}
               >
-                Send Feedback
+                {loading ? "Sending..." : "Send Feedback"}
               </button>
             </form>
           )}

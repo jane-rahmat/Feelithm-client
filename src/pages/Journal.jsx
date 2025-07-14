@@ -1,20 +1,21 @@
+// src/pages/Journal.jsx
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { db } from "../firebase/firebase"; // ✅ Correct import
+import { db } from "../firebase/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { useAuth } from "../context/AuthContext"; // ✅ AuthContext hook
+import { useAuth } from "../context/AuthContext";
 import Loader from "../components/Loader";
 
 export default function Journal() {
   const [entry, setEntry] = useState("");
   const [saved, setSaved] = useState(false);
-  const [loading, setLoading] = useState(false); // 🔄 loading state
+  const [loading, setLoading] = useState(false);
   const mood = localStorage.getItem("selectedMood");
   const emoji = localStorage.getItem("selectedEmoji");
   const navigate = useNavigate();
-  const { user } = useAuth(); // get logged-in user
+  const { user } = useAuth();
 
   const handleSave = async () => {
     if (!user) {

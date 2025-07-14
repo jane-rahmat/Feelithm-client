@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { FaSyncAlt, FaMusic, FaQuoteLeft } from "react-icons/fa";
+
 
 const moodData = {
   Happy: {
@@ -11,17 +12,18 @@ const moodData = {
     ],
     songs: [
       {
-        title: "Phir Se Ud Chala",
-        youtube: "https://www.youtube.com/watch?v=GfCqMv--ncA",
-        spotify: "https://open.spotify.com/track/6hzN6D7a5zQ9ENwPQRXtK3",
+        title: "Ilahi - Yeh Jawaani Hai Deewani",
+        youtube: "https://www.youtube.com/watch?v=fdubeMFwuGs",
+        spotify: "https://open.spotify.com/track/5cgKosPPj5Cs9a2JQufUc1?si=b68e0e22535547a3",
       },
       {
-        title: "Ilahi - Yeh Jawaani Hai Deewani",
-        youtube: "https://www.youtube.com/watch?v=8v_4O44sfjM",
-        spotify: "https://open.spotify.com/track/2SHn9Pv1C4P6aLDQznF24f",
+        title: "Love You Zindagi - Dear Zindagi",
+        youtube: "https://www.youtube.com/watch?v=rwn0Zs7ELzc&list=RDrwn0Zs7ELzc&start_radio=1",
+        spotify: "https://open.spotify.com/track/0tZMTCvEzXWz7AvjzIPf1H?si=936d1518e3914bd5",
       },
     ],
   },
+
   Sad: {
     quotes: [
       "Tears come from the heart and not from the brain.",
@@ -30,16 +32,17 @@ const moodData = {
     songs: [
       {
         title: "Channa Mereya - Ae Dil Hai Mushkil",
-        youtube: "https://www.youtube.com/watch?v=284Ov7ysmfA",
-        spotify: "https://open.spotify.com/track/1VmR2RlIIe7nXR4np1b0v6",
+        youtube: "https://www.youtube.com/watch?v=bzSTpdcs-EI&list=RDbzSTpdcs-EI&start_radio=1",
+        spotify: "https://open.spotify.com/track/0H2iJVgorRR0ZFgRqGUjUM?si=961a715092d749dc",
       },
       {
-        title: "Kabira - Yeh Jawaani Hai Deewani",
-        youtube: "https://www.youtube.com/watch?v=83Y2hvVjXrk",
-        spotify: "https://open.spotify.com/track/5ofHgDQoWwWCELiBJl8J8J",
+        title: "Agar Tum Saath Ho - Tamasha",
+        youtube: "https://youtu.be/xRb8hxwN5zc?si=15If0NV388pHlRWY",
+        spotify: "https://open.spotify.com/track/3hkC9EHFZNQPXrtl8WPHnX?si=f801ddc0bd1b4f4e",
       },
     ],
   },
+
   Loved: {
     quotes: [
       "You are loved more than you will ever know.",
@@ -47,18 +50,78 @@ const moodData = {
     ],
     songs: [
       {
-        title: "Raabta - Agent Vinod",
-        youtube: "https://www.youtube.com/watch?v=UBZs0kPZE4I",
-        spotify: "https://open.spotify.com/track/5qA4bvSPZay7RtEqgSKhHg",
+        title: "Tum Se Hi - Jab We Met",
+        youtube: "https://youtu.be/Cb6wuzOurPc?si=LpoYlZqTuuomPn4U",
+        spotify: "https://open.spotify.com/track/7eQl3Yqv35ioqUfveKHitE?si=4ca2e219fbe545b4",
       },
       {
-        title: "Tum Se Hi - Jab We Met",
-        youtube: "https://www.youtube.com/watch?v=bjjc59FgUpg",
-        spotify: "https://open.spotify.com/track/5vlEg2fT4cFWAqU5QptIpQ",
+        title: "Raabta - Agent Vinod",
+        youtube: "https://youtu.be/zlt38OOqwDc?si=RC14ENB4N-O267-h",
+        spotify: "https://open.spotify.com/track/6FjbAnaPRPwiP3sciEYctO?si=ebc555d07ce24aa0",
+      },
+    ],
+  },
+
+  Angry: {
+    quotes: [
+      "Speak when you are angry and you'll make the best speech you'll ever regret.",
+      "Anger is one letter short of danger.",
+    ],
+    songs: [
+      {
+        title: "Zinda - Bhaag Milkha Bhaag",
+        youtube: "https://youtu.be/Ax0G_P2dSBw?si=FTSKpq6zobu5lDE_",
+        spotify: "https://open.spotify.com/track/0oQ049KLHdo87oLLmvDA1P?si=98e068a7d01a4422",
+      },
+      {
+        title: "Kar Har Maidan Fateh - Sanju",
+        youtube: "https://youtu.be/9iIX4PBplAY?si=3D4TSQ0P26nP0Eny",
+        spotify: "https://open.spotify.com/track/7gZwhDmzciskHbZemjf931?si=18ea38809af14114",
+      },
+    ],
+  },
+
+  Anxious: {
+    quotes: [
+      "Just breathe. You’re stronger than you think.",
+      "Worrying means you suffer twice.",
+      "One step at a time is good walking.",
+    ],
+    songs: [
+      {
+        title: "Patakha Guddi - Highway",
+        youtube: "https://youtu.be/8HDTS80dlr4?si=zY9CwfnvFwofSa7X",
+        spotify: "https://open.spotify.com/track/7jpmNt5iCtSdXuT1xEGp8O?si=8b7974b6a75e4eaf",
+      },
+      {
+        title: "Zinda Hoon Yaar - Lootera",
+        youtube: "https://youtu.be/cgHLvt0rxmM?si=NSQ0KFO954GZhrnE",
+        spotify: "https://open.spotify.com/track/44oZxJJGjYbOY1hTKhxswV?si=7eb14703ebcc4fc3",
+      },
+    ],
+  },
+
+  Tired: {
+    quotes: [
+      "Rest when you're weary. Refresh and renew yourself.",
+      "Fatigue is the best pillow.",
+    ],
+    songs: [
+      {
+        title: "Khul Kabhi Toh - Haider",
+        youtube: "https://youtu.be/LoAoM7zXRpU?si=ZL447rd5zYKCP5Ro",
+        spotify: "https://open.spotify.com/track/3vIJJRPZt2NxusCmQvgLnN?si=f67646cf26684f9e",
+      },
+      {
+        title: "Sham - Aisha",
+        youtube: "https://youtu.be/kl8T6tsOZJk?si=1eL-FTWn3QErWcu8",
+        spotify: "https://open.spotify.com/track/5YOjbB5DC2u1y05soLmhsm?si=09d083ac37944503",
       },
     ],
   },
 };
+
+
 
 export default function MoodSuggestions() {
   const location = useLocation();
@@ -68,23 +131,15 @@ export default function MoodSuggestions() {
   const [song, setSong] = useState(null);
 
   const generateQuote = useCallback(() => {
-    const options = moodData[mood]?.quotes || [];
-    if (options.length) {
-      const random = options[Math.floor(Math.random() * options.length)];
-      setQuote(random);
-    } else {
-      setQuote("No quote available.");
-    }
+    const quotes = moodData[mood]?.quotes || [];
+    const random = quotes[Math.floor(Math.random() * quotes.length)];
+    setQuote(random);
   }, [mood]);
 
   const generateSong = useCallback(() => {
-    const options = moodData[mood]?.songs || [];
-    if (options.length) {
-      const random = options[Math.floor(Math.random() * options.length)];
-      setSong(random);
-    } else {
-      setSong(null);
-    }
+    const songs = moodData[mood]?.songs || [];
+    const random = songs[Math.floor(Math.random() * songs.length)];
+    setSong(random);
   }, [mood]);
 
   useEffect(() => {
@@ -93,73 +148,62 @@ export default function MoodSuggestions() {
   }, [generateQuote, generateSong]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-yellow-50 via-pink-50 to-purple-100 dark:from-zinc-900 dark:via-zinc-800 dark:to-zinc-900 px-4">
-      <div className="bg-white dark:bg-zinc-800 shadow-lg rounded-lg p-8 max-w-md w-full">
-        <h2 className="text-2xl font-bold mb-6 text-center text-purple-700 dark:text-purple-300">
-          🎵 Based on your mood: {mood}
+    <div className="min-h-screen flex flex-col items-center justify-center px-4 py-12 bg-gradient-to-br from-yellow-50 via-pink-50 to-purple-100 dark:from-zinc-900 dark:via-zinc-800 dark:to-zinc-900">
+      <div className="bg-white dark:bg-zinc-800 shadow-2xl rounded-xl p-8 max-w-md w-full text-center">
+        <h2 className="text-2xl font-bold mb-6 text-purple-700 dark:text-purple-300">
+          🎵 Based on your mood: <span className="capitalize">{mood}</span>
         </h2>
 
-      {/* Quote Section */}
-<div className="relative bg-purple-50 dark:bg-zinc-700 text-purple-900 dark:text-purple-100 p-4 mb-4 rounded-lg text-center">
-  <span className="italic">
-    <span className="text-xs align-top">“</span>
-    {quote}
-    <span className="text-xs align-top">”</span>
-  </span>
-  <button
-    onClick={generateQuote}
-    className="absolute top-2 right-2 text-purple-500 hover:text-purple-700"
-  >
-    <FaSyncAlt />
-  </button>
-</div>
+        {/* Quote Box */}
+        <div className="relative bg-purple-50 dark:bg-purple-900/30 p-4 rounded-lg border border-purple-300 dark:border-purple-600 mb-4">
+          
+          <span className="italic text-sm">"{quote}"</span>
+          <button
+            onClick={generateQuote}
+            className="absolute top-2 right-2 text-purple-500 hover:text-purple-700"
+            title="Refresh quote"
+          >
+            <FaSyncAlt />
+          </button>
+        </div>
 
-
-
-
-        {/* Song Section */}
-        <div className="relative bg-blue-50 dark:bg-zinc-700 text-blue-900 dark:text-blue-100 p-4 rounded-lg text-center">
-          <p className="font-medium mb-2">
+        {/* Song Box */}
+        <div className="relative bg-blue-50 dark:bg-zinc-700/40 p-4 rounded-lg border border-blue-300 dark:border-blue-600">
+          <p className="font-semibold text-base">
             <FaMusic className="inline mr-2" />
-            Song Suggestion:
+            {song?.title}
           </p>
-          {song ? (
-            <>
-              <p className="font-semibold">{song.title}</p>
-              <div className="flex justify-center mt-2 gap-4">
-                <a
-                  href={song.youtube}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-red-600 underline"
-                >
-                  YouTube
-                </a>
-                <a
-                  href={song.spotify}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-green-600 underline"
-                >
-                  Spotify
-                </a>
-              </div>
-            </>
-          ) : (
-            <p className="italic text-gray-500">No song</p>
-          )}
+          <div className="flex justify-center gap-4 mt-2">
+            <a
+              href={song?.youtube}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-red-600 underline"
+            >
+              YouTube
+            </a>
+            <a
+              href={song?.spotify}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-green-600 underline"
+            >
+              Spotify
+            </a>
+          </div>
           <button
             onClick={generateSong}
             className="absolute top-2 right-2 text-blue-500 hover:text-blue-700"
+            title="Refresh song"
           >
             <FaSyncAlt />
           </button>
         </div>
 
         <div className="mt-6 text-center">
-          <a href="/journal" className="text-purple-600 hover:underline">
+          <Link to="/journal" className="text-purple-600 hover:underline">
             → Go to Journal
-          </a>
+          </Link>
         </div>
       </div>
     </div>

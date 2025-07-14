@@ -13,7 +13,7 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import MoodSuggestions from "./pages/MoodSuggestions";
 import NotFound from "./pages/NotFound";
-
+import AdminFeedback from "./pages/AdminFeedback";
 
 import { AuthProvider } from "./context/AuthContext";      // 🟣 global auth state
 import ProtectedRoute from "./components/ProtectedRoute";  // 🔒 route guard
@@ -35,6 +35,7 @@ export default function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/mood-suggestions" element={<MoodSuggestions />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="/admin/feedback" element={<AdminFeedback />} />
 
 
           {/* Private routes (require login) */}
