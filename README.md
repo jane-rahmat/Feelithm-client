@@ -82,9 +82,9 @@ Here are a few glimpses of **Feelithm** in action:
 
 ---
 
-### About This Repo
+### About This Repo  
+**`feelithm-client`** — The complete front-end and Firebase-powered backend of *Feelithm*, an intelligent mood-tracking and emotional wellness app that listens, reflects, and supports mental well-being.
 
-`feelithm-client` — the React front‑end for Feelithm, the mood‑lifting emotional‑support web app.
 
 ---
 
